@@ -184,3 +184,43 @@ end;
 
     Sí, si INSERT falla después del FETCH, la transacción puede quedar abierta, para evitarlo, se debe manejar excepciones y asegurar que el cursor siempre se cierre.
 */
+
+
+/* PASO 2 - 1*/
+SET SERVEROUTPUT ON;
+
+DECLARE
+    resultado INTEGER;
+BEGIN
+    -- Intentamos hacer 3 reservas válidas
+    resultado := reservarPista('Socio 1', CURRENT_DATE, 12);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Reserva 1: OK');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Reserva 1: FALLIDA');
+    END IF;
+
+    resultado := reservarPista('Socio 2', CURRENT_DATE, 12);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Reserva 2: OK');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Reserva 2: FALLIDA');
+    END IF;
+
+    resultado := reservarPista('Socio 3', CURRENT_DATE, 12);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Reserva 3: OK');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Reserva 3: FALLIDA');
+    END IF;
+
+    -- Intentamos una cuarta reserva, que debería fallar
+    resultado := reservarPista('Socio 4', CURRENT_DATE, 12);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Reserva 4: ERROR (No debería haberse reservado)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Reserva 4: OK (No había hueco)');
+    END IF;
+    
+END;
+/
