@@ -128,6 +128,15 @@ end;
 
 /*  
 1 ->  ¿Por qué en las comparacionesde fecha en Oracle conviene utilizar la función trunc?  
-   En Oracle, los valores de tipo DATE incluyen fecha y hora, la comparación podría fallar si las horas son diferentes, 
-   trunc(fecha) elimina la parte horaria y permite comparar solo el día.  
+
+    En Oracle, los valores de tipo DATE incluyen fecha y hora, la comparación podría fallar si las horas son diferentes, 
+    trunc(fecha) elimina la parte horaria y permite comparar solo el día.  
 */
+
+/*  
+2 ->  ¿Qué es sql%rowcount y cómo funciona?  
+
+    sql%rowcount devuelve el número de filas afectadas por la última sentencia DML, por ejemplo en anularReserva se utiliza para saber si el DELETE afecto a una fila
+    si se elimina una fila se confirma la tansaccion con un COMMIT y se devuelve 1, en el caso contrario se hace un ROLBACK
+*/
+
