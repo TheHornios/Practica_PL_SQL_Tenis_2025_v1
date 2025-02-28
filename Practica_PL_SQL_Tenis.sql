@@ -160,3 +160,10 @@ end;
     - FOUND: TRUE si el FETCH obtuvo una fila, FALSE si no hay más datos
     - NOTFOUND: TRUE si no hay más filas disponibles, FALSE si aún hay datos 
 */
+
+/*  
+4 -> En la función anularReserva discute si da lo mismo sustituir el rollback por un commit y por qué
+
+    No, si se usa COMMIT en lugar de ROLLBACK cuando no se elimina ninguna fila, la transacción se confirmaría aunque no se haya hecho ninguna modificación, usar COMMIT podría 
+    dar la falsa impresión de que la eliminación tuvo éxito cuando no fue así
+*/
