@@ -258,3 +258,13 @@ SELECT * FROM reservas ORDER BY fecha, hora, pista;
 /* PASO 3 - 1*/
 GRANT DEBUG CONNECT SESSION TO hr;
 GRANT DEBUG ANY PROCEDURE TO hr;
+
+
+/* PASO 3 - 2*/
+
+DECLARE
+    resultado INTEGER;
+BEGIN
+    resultado := reservarPista('Socio 5', CURRENT_DATE, 15);
+END;
+/
