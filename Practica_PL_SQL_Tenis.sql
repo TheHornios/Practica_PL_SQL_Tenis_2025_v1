@@ -253,3 +253,8 @@ END;
 
 /* PASO 2 - 2*/
 SELECT * FROM reservas ORDER BY fecha, hora, pista;
+
+
+/* PASO 3 - 1*/
+GRANT DEBUG CONNECT SESSION TO hr;
+GRANT DEBUG ANY PROCEDURE TO hr;
