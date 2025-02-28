@@ -249,3 +249,7 @@ BEGIN
     
 END;
 /
+
+
+/* PASO 2 - 2*/
+SELECT * FROM reservas ORDER BY fecha, hora, pista;
