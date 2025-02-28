@@ -187,6 +187,8 @@ end;
 
 
 /* PASO 2 - 1.1*/
+
+/*
 SET SERVEROUTPUT ON;
 
 DECLARE
@@ -224,8 +226,10 @@ BEGIN
     
 END;
 /
+*/
 
 /* PASO 2 - 1.2*/
+/*
 SET SERVEROUTPUT ON;
 
 DECLARE
@@ -249,10 +253,10 @@ BEGIN
     
 END;
 /
-
+*/
 
 /* PASO 2 - 2*/
-SELECT * FROM reservas ORDER BY fecha, hora, pista;
+/*SELECT * FROM reservas ORDER BY fecha, hora, pista;*/
 
 
 /* PASO 3 - 1*/
@@ -266,5 +270,69 @@ DECLARE
     resultado INTEGER;
 BEGIN
     resultado := reservarPista('Socio 5', CURRENT_DATE, 15);
+END;
+/
+
+
+/* PASO 4*/
+CREATE OR REPLACE PROCEDURE TEST_FUNCIONES_TENIS 
+IS
+    resultado INTEGER;
+BEGIN
+    -- Intentamos hacer 3 reservas válidas
+    resultado := reservarPista('Socio 1', CURRENT_DATE, 12);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Reserva 1: ERROR (No debería haberse reservado)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Reserva 1: OK (No había hueco)');
+    END IF;
+
+    resultado := reservarPista('Socio 2', CURRENT_DATE, 12);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Reserva 2: ERROR (No debería haberse reservado)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Reserva 2: OK (No había hueco)');
+    END IF;
+
+    resultado := reservarPista('Socio 3', CURRENT_DATE, 12);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Reserva 3: ERROR (No debería haberse reservado)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Reserva 3: OK (No había hueco)');
+    END IF;
+    
+    -- Intentamos hacer una reserva inválida (sin hueco)
+    resultado := reservarPista('Socio 4', CURRENT_DATE, 12);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Reserva 4: ERROR (No debería haberse reservado)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Reserva 4: OK (No había hueco)');
+    END IF;
+
+    -- Anulamos una reserva válida
+    resultado := anularReserva('Socio 1', CURRENT_DATE, 12, 1);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Anulación 1: OK (Reserva eliminada)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Anulación 1: FALLIDA (No se eliminó)');
+    END IF;
+
+    -- Intentamos anular una reserva inexistente
+    resultado := anularReserva('Socio 1', DATE '1920-1-1', 12, 1);
+    IF resultado = 2 THEN
+        DBMS_OUTPUT.PUT_LINE('Anulación 1: OK (Reserva eliminada)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Anulación 1: FALLIDA (No se eliminó)');
+    END IF;
+
+    -- Consulta final para verificar resultados
+    EXECUTE IMMEDIATE 'SELECT * FROM reservas ORDER BY fecha, hora, pista';
+END;
+/
+
+EXEC TEST_FUNCIONES_TENIS;
+
+BEGIN
+    TEST_FUNCIONES_TENIS;
 END;
 /
