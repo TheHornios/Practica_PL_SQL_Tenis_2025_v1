@@ -140,3 +140,23 @@ end;
     si se elimina una fila se confirma la tansaccion con un COMMIT y se devuelve 1, en el caso contrario se hace un ROLBACK
 */
 
+/*  
+3 ->  ¿Qué es una variable de tipo cursor?
+    
+    Un cusror es una estructura que permite recorrer filas de una consulta. 
+
+  ->  ¿Qué variable de tipo cursor hay en la segunda función?
+
+    En reservarPista, el cursor vPistasLibres obtiene las pistas disponibles para la fecha y hora dadas
+
+  ->  ¿Qué efecto tienen las operaciones open, fetch y close?
+  
+    - open: Ejecuta la consulta y prepara los resultados  
+    - fetch: Obtiene la siguiente fila disponible
+    - close: Libera los recursos del cursor
+
+  ->  ¿Qué valores toman las propiedades de cursor FOUND y NOTFOUND y en qué caso?
+
+    - FOUND: TRUE si el FETCH obtuvo una fila, FALSE si no hay más datos
+    - NOTFOUND: TRUE si no hay más filas disponibles, FALSE si aún hay datos 
+*/
