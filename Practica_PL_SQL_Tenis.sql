@@ -186,7 +186,7 @@ end;
 */
 
 
-/* PASO 2 - 1*/
+/* PASO 2 - 1.1*/
 SET SERVEROUTPUT ON;
 
 DECLARE
@@ -220,6 +220,31 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Reserva 4: ERROR (No debería haberse reservado)');
     ELSE
         DBMS_OUTPUT.PUT_LINE('Reserva 4: OK (No había hueco)');
+    END IF;
+    
+END;
+/
+
+/* PASO 2 - 1.2*/
+SET SERVEROUTPUT ON;
+
+DECLARE
+    resultado INTEGER;
+BEGIN
+    -- Anulamos una reserva existente
+    resultado := anularReserva('Socio 1', CURRENT_DATE, 12, 1);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Anulación 1: OK (Reserva eliminada)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Anulación 1: FALLIDA (No se eliminó)');
+    END IF;
+
+    -- Intentamos anular una reserva inexistente
+    resultado := anularReserva('Socio 1', DATE '1920-1-1', 12, 1);
+    IF resultado = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Anulación 2: ERROR (No debería haberse eliminado)');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Anulación 2: OK (Reserva no existía)');
     END IF;
     
 END;
