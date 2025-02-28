@@ -89,10 +89,21 @@ BEGIN
         RETURN 0;
     END IF;
 
-    INSERT INTO reservas VALUES (vPista, p_fecha, p_hora, p_socio);
-    CLOSE vPistasLibres;
-    COMMIT;
-    RETURN 1;
+    -- Intentar insertar la reserva
+    BEGIN
+        INSERT INTO reservas VALUES (vPista, p_fecha, p_hora, p_socio);
+        CLOSE vPistasLibres;
+        COMMIT;
+        RETURN 1;
+    EXCEPTION
+    WHEN OTHERS THEN
+        -- Manejo de errores: cerrar cursor y hacer rollback
+        IF vPistasLibres%ISOPEN THEN
+            CLOSE vPistasLibres;
+        END IF;
+        ROLLBACK;
+        RETURN -1;
+    END;
 END;
 /
 
@@ -166,4 +177,10 @@ end;
 
     No, si se usa COMMIT en lugar de ROLLBACK cuando no se elimina ninguna fila, la transacción se confirmaría aunque no se haya hecho ninguna modificación, usar COMMIT podría 
     dar la falsa impresión de que la eliminación tuvo éxito cuando no fue así
+*/
+
+/*  
+5 -> En la función reservarPista investiga si la transacción se puede quedar abierta en algún caso
+
+    Sí, si INSERT falla después del FETCH, la transacción puede quedar abierta, para evitarlo, se debe manejar excepciones y asegurar que el cursor siempre se cierre.
 */
