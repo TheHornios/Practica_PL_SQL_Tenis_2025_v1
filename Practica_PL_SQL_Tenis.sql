@@ -26,7 +26,7 @@ insert into reservas
 	values (seq_pistas.currval, '24/03/2018', 18, 'Pepito');
 insert into reservas 
 	values (seq_pistas.currval, '21/03/2018', 14, 'Juan');
-insert into pistas values (seq_pistas.nextval);
+insert into pistas values (seq_pistas.nextval); 
 insert into reservas 
 	values (seq_pistas.currval, '22/03/2018', 13, 'Lola');
 insert into reservas 
@@ -126,3 +126,8 @@ end;
 /
 */
 
+/*  
+1 ->  ¿Por qué en las comparacionesde fecha en Oracle conviene utilizar la función trunc?  
+   En Oracle, los valores de tipo DATE incluyen fecha y hora, la comparación podría fallar si las horas son diferentes, 
+   trunc(fecha) elimina la parte horaria y permite comparar solo el día.  
+*/
