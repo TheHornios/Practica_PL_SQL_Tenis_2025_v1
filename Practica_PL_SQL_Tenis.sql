@@ -1,3 +1,8 @@
+/*
+* Rodrigo Pascual Arnaiz rpa1004@alu.ubu.es
+* Url git: https://github.com/TheHornios/Practica_PL_SQL_Tenis_2025_v1
+*/
+
 /* 2025_v1 */
 
 drop table reservas;
